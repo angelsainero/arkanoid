@@ -42,7 +42,7 @@ python -m venv env
 .\env\Scripts\activate
 # linux / MacOs
 source ./env/bin/activate
-pip install -r requirements-dev.txt
+pip install -r requirements-de v.txt
 # En VS Code
 code .
 ```

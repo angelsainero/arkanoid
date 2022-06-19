@@ -1,3 +1,4 @@
+from re import A
 from arkanoid import ANCHO, ALTO
 from arkanoid.game import Arkanoid
 
