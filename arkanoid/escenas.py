@@ -25,7 +25,7 @@ class Portada(Escena):
         # importamos la librería "os" para que no tengamos que preocupearnos de las barras "linux/Windows"
         font_file = os.path.join(
             "arkanoid", "resources", "fonts", "CabinSketch-Bold.ttf")
-        self.tipografia = pg.font.Font(font_file, 40)
+        self.tipografia = pg.font.Font(font_file, 40)  # cargamos la tipografía
 
     def pintar_texto(self):
         mensaje = "Pulsa Espacio para empezar"
@@ -34,6 +34,7 @@ class Portada(Escena):
         ancho_texto = texto.get_width()  # obtengo el ancho para los calculos
         pos_x = (ANCHO - ancho_texto) / 2
         pos_y = 3/4 * ALTO
+        # pintamos.... aunque también podrías ser pg.Surface.blit(.....)
         self.pantalla.blit(texto, (pos_x, pos_y))
 
     def bucle_principal(self):
