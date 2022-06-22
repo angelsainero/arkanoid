@@ -41,13 +41,17 @@ class Portada(Escena):
         salir = False
         while not salir:  # mientras no tengamos que salir nos quedamos en el bucle
             for event in pg.event.get():  # detectamos los eventos
-                if event.type == pg.QUIT:  # si el tipo de evento es el del QUIT saliamos del bucle
+                if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                     salir = True
+                if event.type == pg.QUIT:  # si el tipo de evento es el del QUIT saliamos del bucle
+                    pg.quit()
 
             # pintamos la pantalla de un color
-            self.pantalla.fill((99, 0, 0))
+            self.pantalla.fill((0, 0, 0))
+
             self.pintar_logo()
             self.pintar_texto()
+
             pg.display.flip()  # para ver lo que pintamos
 
     def pintar_logo(self):
@@ -59,17 +63,28 @@ class Portada(Escena):
         self.pantalla.blit(self.logo, (pos_x, pos_y))
 
 
-class Partida(Escena):
+class Partida(Escena):  # Creamos el constructor de Partida para poner el background
+    def __init__(self, pantalla):
+        super().__init__(pantalla)
+        bg_file = os.path.join(
+            "arkanoid", "resources", "images", "background.jpg")
+        # nos guardamos self.fondo porque lo usaremos en el método de pintar_fondo
+        self.fondo = pg.image.load(bg_file)
+
     def bucle_principal(self):
         salir = False
         while not salir:  # mientras no tengamos que salir nos quedamos en el bucle
             for event in pg.event.get():  # detectamos los eventos
                 if event.type == pg.QUIT:  # si el tipo de evento es el del QUIT saliamos del bucle
-                    salir = True
+                    pg.quit()
 
             # pintamos la pantalla de un color
             self.pantalla.fill((0, 99, 0))
+            self.pintar_fondo()
             pg.display.flip()  # para ver lo que pintamos
+
+    def pintar_fondo(self):
+        self.pantalla.blit(self.fondo, (0, 0))
 
 
 class HallOfFame(Escena):
@@ -78,7 +93,7 @@ class HallOfFame(Escena):
         while not salir:  # mientras no tengamos que salir nos quedamos en el bucle
             for event in pg.event.get():  # detectamos los eventos
                 if event.type == pg.QUIT:  # si el tipo de evento es el del QUIT saliamos del bucle
-                    salir = True
+                    pg.quit()
 
             # pintamos la pantalla de un color
             self.pantalla.fill((0, 0, 99))
