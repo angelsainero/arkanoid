@@ -34,7 +34,7 @@ class Portada(Escena):
         ancho_texto = texto.get_width()  # obtengo el ancho para los calculos
         pos_x = (ANCHO - ancho_texto) / 2
         pos_y = 3/4 * ALTO
-        # pintamos.... aunque también podrías ser pg.Surface.blit(.....)
+        # pintamos.... aunque también podría ser pg.Surface.blit(.....)
         self.pantalla.blit(texto, (pos_x, pos_y))
 
     def bucle_principal(self):
