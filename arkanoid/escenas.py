@@ -2,7 +2,7 @@ import os
 import pygame as pg
 from . import ANCHO, ALTO, COLOR_MENSAJE, FPS
 import arkanoid  # importo el ancho y alto
-from .entidades import Raqueta
+from .entidades import Ladrillo, Raqueta
 
 
 class Escena:
@@ -90,10 +90,24 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
             # probamos a pintar la raqueta, pero después del fondo para que no lo tape
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
 
+            # aqui pintamos el muro
+
             pg.display.flip()  # para ver lo que pintamos
 
     def pintar_fondo(self):
         self.pantalla.blit(self.fondo, (0, 0))
+
+    def crear_muro(self):
+        numero_filas = 5
+        numero_columnas = 4
+        self.ladrillos = []
+
+        for fila in range(numero_filas):
+            for columna in range(numero_columnas):
+                ladrillo = Ladrillo(columna, fila)
+                ancho_ladrillo = ladrillo.image.get_width()
+                alto_ladrillo = ladrillo.image.get_height()
+                self.ladrillos.append(ladrillo)
 
 
 class HallOfFame(Escena):
