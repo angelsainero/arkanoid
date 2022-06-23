@@ -1,4 +1,5 @@
 import os
+from queue import Empty
 import pygame as pg
 from . import ANCHO, ALTO, COLOR_MENSAJE, FPS
 import arkanoid  # importo el ancho y alto
@@ -73,6 +74,7 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
         # nos guardamos self.fondo porque lo usaremos en el método de pintar_fondo
         self.fondo = pg.image.load(bg_file)
         self.jugador = Raqueta()  # instanciamos el objeto
+        self.crear_muro()
 
     def bucle_principal(self):
         salir = False
@@ -91,6 +93,7 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
             self.pantalla.blit(self.jugador.image, self.jugador.rect)
 
             # aqui pintamos el muro
+            self.ladrillos.draw(self.pantalla)
 
             pg.display.flip()  # para ver lo que pintamos
 
@@ -100,14 +103,13 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
     def crear_muro(self):
         numero_filas = 5
         numero_columnas = 4
-        self.ladrillos = []
+        self.ladrillos = pg.sprite.Group()
+        self.ladrillos.empty()
 
         for fila in range(numero_filas):
             for columna in range(numero_columnas):
                 ladrillo = Ladrillo(columna, fila)
-                ancho_ladrillo = ladrillo.image.get_width()
-                alto_ladrillo = ladrillo.image.get_height()
-                self.ladrillos.append(ladrillo)
+                self.ladrillos.add(ladrillo)
 
 
 class HallOfFame(Escena):
