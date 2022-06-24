@@ -1,5 +1,4 @@
 import os
-from queue import Empty
 import pygame as pg
 from . import ANCHO, ALTO, COLOR_MENSAJE, FPS
 import arkanoid  # importo el ancho y alto
