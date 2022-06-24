@@ -2,7 +2,7 @@ import os
 import pygame as pg
 from . import ANCHO, ALTO, COLOR_MENSAJE, FPS
 import arkanoid  # importo el ancho y alto
-from .entidades import Ladrillo, Raqueta
+from .entidades import Ladrillo, Pelota, Raqueta
 
 
 class Escena:
@@ -74,9 +74,11 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
         self.fondo = pg.image.load(bg_file)
         self.jugador = Raqueta()  # instanciamos el objeto
         self.crear_muro()
+        self.pelotita = Pelota(midbottom=self.jugador.rect.midtop)
 
     def bucle_principal(self):
         salir = False
+
         while not salir:  # mientras no tengamos que salir nos quedamos en el bucle
             # damos gestión con update al objeto "los cambios de estado del objeto los hace el update"
             self.reloj.tick(FPS)
@@ -93,6 +95,10 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
 
             # aqui pintamos el muro
             self.ladrillos.draw(self.pantalla)
+
+            # pintamos la pelota
+            self.pelotita.update(self.jugador, False)
+            self.pantalla.blit(self.pelotita.image, self.pelotita.rect)
 
             pg.display.flip()  # para ver lo que pintamos
 

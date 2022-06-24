@@ -95,3 +95,16 @@ class Ladrillo(Sprite):
         ancho = self.image.get_width()
         alto = self.image.get_height()
         self.rect = self.image.get_rect(x=columna * ancho, y=fila * alto)
+
+
+class Pelota(Sprite):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.image = pg.image.load(
+            os.path.join("arkanoid", "resources", "images", "ball1.png")
+        )
+        self.rect = self.image.get_rect(**kwargs)
+
+    def update(self, raqueta, juego_iniciado):
+        if not juego_iniciado:
+            self.rect = self.image.get_rect(midbottom=raqueta.rect.midtop)
