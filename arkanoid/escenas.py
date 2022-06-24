@@ -101,13 +101,19 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
 
     def crear_muro(self):
         numero_filas = 5
-        numero_columnas = 4
+        numero_columnas = 6
         self.ladrillos = pg.sprite.Group()
         self.ladrillos.empty()
 
+        margen_y = 40
+
         for fila in range(numero_filas):
             for columna in range(numero_columnas):
-                ladrillo = Ladrillo(columna, fila)
+                ladrillo = Ladrillo(fila, columna)
+                margen_x = (
+                    ANCHO - ladrillo.image.get_width() * numero_columnas) / 2
+                ladrillo.rect.x += margen_x
+                ladrillo.rect.y += margen_y
                 self.ladrillos.add(ladrillo)
 
 
