@@ -78,6 +78,7 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
 
     def bucle_principal(self):
         salir = False
+        partida_iniciada = False
 
         while not salir:  # mientras no tengamos que salir nos quedamos en el bucle
             # damos gestión con update al objeto "los cambios de estado del objeto los hace el update"
@@ -86,6 +87,10 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
             for event in pg.event.get():  # detectamos los eventos
                 if event.type == pg.QUIT:  # si el tipo de evento es el del QUIT saliamos del bucle
                     pg.quit()
+                # con esto iniciamos el juego
+                if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                    partida_iniciada = True
+
             # pintamos la pantalla de un color
             self.pantalla.fill((0, 0, 66))
 
@@ -97,7 +102,7 @@ class Partida(Escena):  # Creamos el constructor de Partida para poner el backgr
             self.ladrillos.draw(self.pantalla)
 
             # pintamos la pelota
-            self.pelotita.update(self.jugador, False)
+            self.pelotita.update(self.jugador, partida_iniciada)
             self.pantalla.blit(self.pelotita.image, self.pelotita.rect)
 
             pg.display.flip()  # para ver lo que pintamos

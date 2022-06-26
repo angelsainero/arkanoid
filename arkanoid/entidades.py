@@ -1,4 +1,5 @@
 import os
+from re import A
 import pygame as pg
 # importamos esta también para no tener que poner pygame.sprite y poder poner sprite
 from pygame.sprite import Sprite
@@ -98,6 +99,10 @@ class Ladrillo(Sprite):
 
 
 class Pelota(Sprite):
+
+    velocidad_x = 5
+    velocidad_y = -5
+
     def __init__(self, **kwargs):
         super().__init__()
         self.image = pg.image.load(
@@ -108,3 +113,21 @@ class Pelota(Sprite):
     def update(self, raqueta, juego_iniciado):
         if not juego_iniciado:
             self.rect = self.image.get_rect(midbottom=raqueta.rect.midtop)
+        else:  # damos movimiento a la pelotita tras iniciar el juego con Space
+            self.rect.x += self.velocidad_x
+            if self.rect.right > ANCHO or self.rect.left < 0:
+                # si se sale de la pantalla rebota, con el cambio de signo en la x y en la y
+                self.velocidad_x = -self.velocidad_x
+            self.rect.y += self.velocidad_y
+            if self.rect.top <= 0:
+                self.velocidad_y = -self.velocidad_y
+
+            if self.rect.top > ALTO:
+                self.pierdes()
+                self.reset()
+
+    def pierdes(self):
+        print("Pierdes una vida")
+
+    def reset(self):
+        print("Recolocamos la pelota a su posición inicial")
